@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    container_name: go-api
+    build: ./build
+    tty: true 
+    volumes:
+      - .:/go/src/go_api
+  
+  db:
+    image: "mysql:5.7"
+    container_name: go-api-mysql
+    tty: true 
+    environment: 
+      MYSQL_ROOT_PASSWORD: go_api_user
+      MYSQL_DATABASE: go_api
+      MYSQL_USER: go_api_user
+      MYSQL_PASSWORD: password
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+      - 3306:3306
+
+volumes:
+  db-data:
+    driver: local

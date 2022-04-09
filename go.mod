@@ -1,3 +1,3 @@
-module new_dev_api
+module go_api
 
-go 1.17
+go 1.18
