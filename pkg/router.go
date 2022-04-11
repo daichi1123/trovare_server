@@ -1,17 +1,16 @@
 package pkg
 
 import (
-	"fmt"
+	"go_api/cmd/pkg"
 	"go_api/configs"
+	"go_api/internal/userHandler"
 	"net/http"
 )
 
 func Router() error {
-	fmt.Println(configs.Config.Port)
+	userHandler.User.CreateUser(userHandler.User{})
 	mux := http.NewServeMux()
-	mux.HandleFunc("/ok", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Print("テスト用")
-	})
+	mux.HandleFunc("/index", pkg.Index)
 	http.ListenAndServe(configs.Config.Port, mux)
 	return nil
 }
