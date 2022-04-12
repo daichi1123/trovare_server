@@ -9,7 +9,8 @@ import (
 )
 
 const (
-	tableNameUser = "users"
+	tableNameUser    = "users"
+	tableNameSession = "sessions"
 )
 
 var Db *sql.DB
