@@ -25,7 +25,7 @@ func (u User) CreateUser() (err error) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	utils.Db.Close()
+	defer utils.Db.Close()
 
 	return
 }

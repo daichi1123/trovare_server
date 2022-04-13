@@ -1,10 +1,12 @@
-package auth
+package userHandler
 
 import (
+	"fmt"
 	"go_api/utils"
 )
 
 func (sess *Session) CheckSession() (valid bool, err error) {
+	fmt.Println(sess.UUID)
 	utils.OpenDb()
 	const getSession = `SELECT id, uuid, email, user_id, created_at FROM sessions WHERE uuid = ?`
 
@@ -21,6 +23,7 @@ func (sess *Session) CheckSession() (valid bool, err error) {
 	if sess.ID != 0 {
 		valid = true
 	}
+	defer utils.Db.Close()
 
 	return
 }

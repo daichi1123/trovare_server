@@ -9,7 +9,8 @@ import (
 )
 
 const (
-	tableNameUser = "users"
+	tableNameUser    = "users"
+	tableNameSession = "sessions"
 )
 
 var Db *sql.DB
@@ -33,5 +34,18 @@ func MakeTable() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	Db.Close()
+
+	cmdS := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
+		id INTEGER PRIMARY KEY AUTO_INCREMENT,
+		uuid VARCHAR(100) NOT NULL UNIQUE,
+		email VARCHAR(100),
+		user_id VARCHAR(100),
+		created_at DATETIME)`, tableNameSession)
+
+	_, err = Db.Exec(cmdS)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer Db.Close()
 }

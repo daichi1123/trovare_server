@@ -18,5 +18,7 @@ func GetUser(id int) (user User, err error) {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	defer utils.Db.Close()
+
 	return
 }

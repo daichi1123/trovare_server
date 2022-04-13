@@ -2,6 +2,7 @@ package configs
 
 import (
 	"gopkg.in/ini.v1"
+	"log"
 )
 
 type ConfigList struct {
@@ -12,7 +13,11 @@ type ConfigList struct {
 var Config ConfigList
 
 func GetConfigVal() {
-	cfg, _ := ini.Load("config.ini")
+	// cmdディレクトリからのgo run main.goだとファイルのローディングができない
+	cfg, err := ini.Load("config.ini")
+	if err != nil {
+		log.Fatalln(err)
+	}
 	Config = ConfigList{
 		Port:   cfg.Section("web").Key("port").String(),
 		DbInfo: cfg.Section("db").Key("db_info").String(),

@@ -1,4 +1,4 @@
-package auth
+package userHandler
 
 import (
 	"fmt"
@@ -20,7 +20,6 @@ func (u *User) CreateSession() (session Session, err error) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-
 	fmt.Println(result)
 
 	err = utils.Db.QueryRow(selectSession, u.ID, u.Email).Scan(
@@ -32,7 +31,7 @@ func (u *User) CreateSession() (session Session, err error) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	utils.Db.Close()
+	defer utils.Db.Close()
 
 	return
 }
