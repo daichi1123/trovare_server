@@ -8,3 +8,5 @@ this repository is making api with golang
 ```
 cd script && make start
 ```
+
+I don't decide which authentication way session or jwt
