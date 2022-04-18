@@ -34,12 +34,15 @@ func Router() error {
 	//下記RedirectIndexはエラーが出る
 	//mux.HandleFunc("/", utils.RedirectIndex)
 	mux.HandleFunc("/index", pkg.Index)
-	mux.HandleFunc("/signup", auth.Signup)
-	mux.HandleFunc("/login", userHandler.Login)
-	mux.HandleFunc("/authenticate", userHandler.Authentication)
+	mux.HandleFunc("/v1/signup", auth.Signup)
+	mux.HandleFunc("/v1/signin/test", userHandler.Signin)
+	mux.HandleFunc("/v1/login", userHandler.Login)
+	mux.HandleFunc("/v1/check-session", userHandler.Authentication)
 	// login後にしかアクセスできない
 	mux.HandleFunc("/after-login", auth.AfterLogin)
-	mux.HandleFunc("/logout", userHandler.Logout)
-	http.ListenAndServe(configs.Config.Port, mux)
+	http.ListenAndServe(configs.Config.Port, handler)
 	return nil
+
+	//mux.HandleFunc("/logout", userHandler.Logout)
+	//http.ListenAndServe(configs.Config.Port, mux)
 }
