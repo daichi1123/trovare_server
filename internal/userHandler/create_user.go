@@ -6,13 +6,16 @@ import (
 	"time"
 )
 
+var createUser = User{
+	Name:     "test1",
+	Email:    "test1@example.com",
+	Password: "test",
+}
+
 func (u User) CreateUser() (err error) {
 	const insert = `INSERT INTO users (uuid, name, email, password, created_at) values (?, ?, ?, ?, ?)`
 
 	utils.OpenDb()
-	// u.Name = "test1"
-	// u.Email = "test1@example.com"
-	// u.Password = "test"
 
 	utils.Db.Begin()
 	_, err = utils.Db.Exec(
