@@ -1,19 +1,29 @@
 package pkg
 
 import (
+	"github.com/rs/cors"
 	"go_api/cmd/pkg"
 	"go_api/configs"
 	"go_api/internal/auth"
 	"go_api/internal/userHandler"
-	"go_api/utils"
 	"net/http"
 )
 
 func Router() error {
 	//userHandler.User.CreateUser(userHandler.User{})
 	//userHandler.GetUser(1)
+	// userをuserHandlerで情報を受け取りauthのCreateSessionメソッドレシーバを使用したい
 	//user, _ := userHandler.GetUserByEmail("test1@example.com")
 	//session, err := user.CreateSession()
+	//if err != nil {
+	//	log.Fatalln(err)
+	//}
+	//session.CheckSession()
+
+	// NewWrite2022/04/13
+	//user, _ := userHandler.GetUserByEmail("test1@example.com")
+	////auth pkgのCreateSessionを呼び出したい
+	//session, err := service.NewModels()
 	//if err != nil {
 	//	log.Fatalln(err)
 	//}
