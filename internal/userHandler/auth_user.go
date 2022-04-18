@@ -1,6 +1,9 @@
 package userHandler
 
 import (
+	"encoding/json"
+	"errors"
+	"fmt"
 	"go_api/utils"
 	"html/template"
 	"log"
@@ -11,12 +14,61 @@ import (
 const tempDir = "templates"
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	//_, err := session(w, r)
+	// ここでJWT or Sessionを使用してフロントに値を返すようにしたい
 	t, err := template.ParseFiles(path.Join(tempDir + "/login.html"))
 	if err != nil {
 		log.Fatal(err)
 	}
 	t.Execute(w, "")
+}
+
+type Credentials struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+func Signin(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodPost:
+		fmt.Println("r", r)
+		var creds Credentials
+		// r.Bodyを　creds構造体の形でデコードする
+		err := json.NewDecoder(r.Body).Decode(&creds)
+		if err != nil {
+			utils.ErrorJSON(w, errors.New("unauthorized"))
+			return
+		}
+
+		//　emailからユーザ情報を受け取ることは成功
+		// test用Email: test1@example.com
+		user, err := GetUserByEmail(creds.Email)
+		if err != nil {
+			utils.ErrorJSON(w, errors.New("unauthorized"))
+			return
+		}
+
+		if user.Password == utils.Encrypt(creds.Password) {
+			// test用Password: test
+			session, err := user.CreateSession()
+			fmt.Print("session", session)
+			if err != nil {
+				log.Fatalln(err)
+			}
+
+			utils.WriteJSON(w, http.StatusOK, session, "res")
+		}
+
+		//if user.Password != utils.Encrypt(creds.Password) {
+		//	// test用Password: test
+		//	session, err := user.CreateSession()
+		//	fmt.Print("session", session)
+		//	if err != nil {
+		//		log.Fatalln(err)
+		//	}
+		//
+		//	utils.WriteJSON(w, http.StatusOK, session, "res")
+		//}
+	}
 }
 
 func Logout(w http.ResponseWriter, r *http.Request) {
@@ -29,7 +81,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 		session := Session{UUID: cookie.Value}
 		session.DeleteSessionByUUID()
 	}
-	http.Redirect(w, r, "/login", 302)
+	http.Redirect(w, r, "v1/login", 302)
 }
 
 func Authentication(w http.ResponseWriter, r *http.Request) {
