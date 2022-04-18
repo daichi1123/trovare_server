@@ -20,7 +20,19 @@ func Router() error {
 	//session.CheckSession()
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", utils.RedirectIndex)
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Headers", "*")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+	})
+	handler := cors.Default().Handler(mux)
+	// signin
+	mux.HandleFunc("/v1/signin", auth.Signin)
+	// signin
+
+	//下記RedirectIndexはエラーが出る
+	//mux.HandleFunc("/", utils.RedirectIndex)
 	mux.HandleFunc("/index", pkg.Index)
 	mux.HandleFunc("/signup", auth.Signup)
 	mux.HandleFunc("/login", userHandler.Login)
