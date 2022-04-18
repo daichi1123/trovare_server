@@ -15,3 +15,12 @@ func OpenDb() {
 		log.Fatalln(err)
 	}
 }
+
+// NewFunc2022/04/13
+func UseDb() (db *sql.DB, err error) {
+	db, err = sql.Open("mysql", configs.Config.DbInfo)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return
+}
