@@ -5,6 +5,7 @@ import (
 	"go_api/cmd/pkg"
 	"go_api/configs"
 	"go_api/internal/auth"
+	"go_api/internal/restaurantHandler"
 	"go_api/internal/userHandler"
 	"net/http"
 )
@@ -51,7 +52,7 @@ func Router() error {
 		"/v1/restaurant/delete",
 		restaurantHandler.DeleteRestaurant,
 	)
-	
+
 	mux.HandleFunc(
 		"/v1/restaurant/register",
 		restaurantHandler.RegisterRestaurantForWeb,
