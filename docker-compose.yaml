@@ -12,10 +12,12 @@ services:
     container_name: go-api-mysql
     tty: true 
     environment: 
-      MYSQL_ROOT_PASSWORD: go_api_user
       MYSQL_DATABASE: go_api
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_USER: go_api_user
       MYSQL_PASSWORD: password
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - db-data:/var/lib/mysql
       - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
