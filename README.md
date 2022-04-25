@@ -16,3 +16,5 @@ I don't decide which authentication way session or jwt
 - Super Admin
 - Owner
 - Client
+
+Now I'm reading Practical Go Programming
