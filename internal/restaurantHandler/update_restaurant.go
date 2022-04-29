@@ -3,11 +3,11 @@ package restaurantHandler
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"go_api/utils"
-	"log"
 	"net/http"
+	"path"
 	"strconv"
-	"strings"
 )
 
 type updateInfo struct {
@@ -23,29 +23,28 @@ func UpdateRestaurantInfo(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case http.MethodPatch:
-		pathParam := strings.TrimPrefix(r.URL.Path, "/v1/restaurant/update/")
-		specifyID, err := strconv.Atoi(pathParam)
+		getID, err := strconv.Atoi(path.Base(r.URL.Path))
 		if err != nil {
-			log.Fatalln(err)
+			w.WriteHeader(400)
+			return
 		}
 
 		err = json.NewDecoder(r.Body).Decode(&updateRestaurantName)
 		if err != nil {
-			log.Fatalln(err)
+			w.WriteHeader(400)
+			return
 		}
-
-		specify := SpecifyRestaurant{specifyID}
+		r := SpecifyRestaurant{getID}
 
 		utils.OpenDb()
 		utils.Db.Begin()
-		// updateInfoNameに問題がある
-		result, err := utils.Db.Exec(updateRestaurant, updateRestaurantName.Name, specify.ID)
+		_, err = utils.Db.Exec(updateRestaurant, updateRestaurantName.Name, r.ID)
 		if err != nil {
 			utils.ErrorJSON(w, errors.New("BadRequest"))
 		}
 		defer utils.Db.Close()
 		json.Marshal(restaurant)
-		json.Marshal(result)
+		fmt.Print(restaurant)
 
 		return
 	}
