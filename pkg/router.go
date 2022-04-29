@@ -45,13 +45,10 @@ func Router() error {
 	//下記RedirectIndexはエラーが出る
 	//mux.HandleFunc("/", utils.RedirectIndex)
 	mux.HandleFunc("/v1/restaurant/", restaurantHandler.GetRestaurant)
+	mux.HandleFunc("/v1/restaurant/create", restaurantHandler.CreateRestaurant)
 	mux.HandleFunc("/v1/restaurant/update/", restaurantHandler.UpdateRestaurantInfo)
 	mux.HandleFunc("/v1/restaurant/delete/", restaurantHandler.DeleteRestaurant)
 
-	mux.HandleFunc(
-		"/v1/restaurant/register",
-		restaurantHandler.RegisterRestaurantForWeb,
-	)
 	mux.HandleFunc("/index", pkg.Index)
 	mux.HandleFunc("/v1/signup", auth.Signup)
 	mux.HandleFunc("/v1/signin/test", userHandler.Signin)
