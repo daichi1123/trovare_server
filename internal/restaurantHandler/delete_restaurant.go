@@ -13,8 +13,6 @@ type specifyRestaurant struct {
 }
 
 func DeleteRestaurant(w http.ResponseWriter, r *http.Request) {
-	const deleteRestaurant = `DELETE FROM restaurants WHERE id = ?;`
-
 	switch r.Method {
 	case http.MethodDelete:
 		getID, err := strconv.Atoi(path.Base(r.URL.Path))
@@ -26,7 +24,7 @@ func DeleteRestaurant(w http.ResponseWriter, r *http.Request) {
 
 		utils.OpenDb()
 		utils.Db.Begin()
-		stmt, err := utils.Db.Prepare(deleteRestaurant)
+		stmt, err := utils.Db.Prepare(delete)
 		if err != nil {
 			utils.ErrorJSON(w, errors.New("BadRequest"))
 			return
