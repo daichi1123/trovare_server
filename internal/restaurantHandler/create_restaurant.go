@@ -3,7 +3,6 @@ package restaurantHandler
 import (
 	"encoding/json"
 	"go_api/utils"
-	"log"
 	"net/http"
 	"time"
 )
@@ -32,11 +31,11 @@ func CreateRestaurant(w http.ResponseWriter, r *http.Request) {
 			restaurant.Rating, // TODO: ratingは、クライアント側が評価していく部分なので将来的にはcreateの際には設定できない様にする
 			time.Now())
 		if err != nil {
-			log.Fatalln(err)
-		} else {
-			w.WriteHeader(201)
-			json.NewEncoder(w).Encode("Created Restaurant")
+			w.WriteHeader(400)
+			json.NewEncoder(w).Encode("BadRequest")
 		}
+		w.WriteHeader(201)
+		json.NewEncoder(w).Encode("Created Restaurant")
 		defer utils.Db.Close()
 
 		return
