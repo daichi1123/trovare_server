@@ -9,20 +9,15 @@ import (
 
 func (u *User) CreateSession() (session Session, err error) {
 	session = Session{}
-	// create_at は、DB設定でparseTimeが必要だった
-	const (
-		createSession = `INSERT INTO sessions (uuid, email, user_id, created_at) values(?, ?, ?, ?)`
-		selectSession = `SELECT id, uuid, email, user_id, created_at FROM sessions WHERE user_id = ? and email = ?`
-	)
 
 	pkg.OpenDb()
-	result, err := pkg.Db.Exec(createSession, pkg.CreateUUID(), u.Email, u.ID, time.Now())
+	result, err := pkg.Db.Exec(createSess, pkg.CreateUUID(), u.Email, u.ID, time.Now())
 	if err != nil {
 		log.Fatalln(err)
 	}
 	fmt.Println(result)
 
-	err = pkg.Db.QueryRow(selectSession, u.ID, u.Email).Scan(
+	err = pkg.Db.QueryRow(selectSess, u.ID, u.Email).Scan(
 		&session.ID,
 		&session.UUID,
 		&session.Email,

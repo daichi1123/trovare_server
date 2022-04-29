@@ -8,10 +8,9 @@ import (
 
 func GetUserByEmail(email string) (user User, err error) {
 	user = User{}
-	const getUserByEmail = `SELECT id, uuid, name, email, password, created_at FROM users WHERE email = ?;`
 
 	pkg.OpenDb()
-	err = pkg.Db.QueryRow(getUserByEmail, email).Scan(&user.ID,
+	err = pkg.Db.QueryRow(getUByEmail, email).Scan(&user.ID,
 		&user.UUID,
 		&user.Name,
 		&user.Email,

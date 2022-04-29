@@ -7,9 +7,8 @@ import (
 
 func GetUser(id int) (user User, err error) {
 	user = User{}
-	const selectUser = `SELECT id, uuid, name, email, password FROM users WHERE id = ?`
 	pkg.OpenDb()
-	err = pkg.Db.QueryRow(selectUser, id).Scan(
+	err = pkg.Db.QueryRow(getU, id).Scan(
 		&user.ID,
 		&user.UUID,
 		&user.Name,
