@@ -95,8 +95,7 @@ func MakeTable() {
 		id INTEGER PRIMARY KEY AUTO_INCREMENT,
 		restaurant_id INTEGER,
 		genre_id INTEGER,
-		created_at DATETIME,
-		)`, tableNameRestaurantGenre)
+		created_at DATETIME)`, tableNameRestaurantGenre)
 	_, err = Db.Exec(RestaurantGenreT)
 	if err != nil {
 		log.Fatalln(err)
