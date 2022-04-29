@@ -12,6 +12,10 @@ type Restaurant struct {
 	CreatedAt    time.Time `json:"created_at"`
 }
 
+type GetRestaurantsResponse struct {
+	Restaurants []Restaurant `json:"restaurants"`
+}
+
 type CreateRestaurantRequest struct {
 }
 
