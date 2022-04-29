@@ -11,3 +11,16 @@ type Restaurant struct {
 	Rating       int       `json:"rating"`
 	CreatedAt    time.Time `json:"created_at"`
 }
+
+type CreateRestaurantRequest struct {
+}
+
+type CreateRestaurantResponse struct {
+	Restaurant Restaurant `json:"restaurant"`
+}
+
+type UpdateRestaurantRequest struct {
+}
+
+type UpdateRestaurantResponse struct {
+}
