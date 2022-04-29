@@ -1,7 +1,7 @@
 package pkg
 
 import (
-	"go_api/internal/auth"
+	"go_api/internal/trovare/auth"
 	"html/template"
 	"log"
 	"net/http"
