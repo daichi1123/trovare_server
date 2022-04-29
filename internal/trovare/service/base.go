@@ -10,6 +10,7 @@ import (
 
 const (
 	tableNameUser            = "users"
+	tableNameOwner           = "owners"
 	tableNameSession         = "sessions"
 	tableNameRestaurant      = "restaurants"
 	tableNameFood            = "foods"
@@ -95,9 +96,20 @@ func MakeTable() {
 		id INTEGER PRIMARY KEY AUTO_INCREMENT,
 		restaurant_id INTEGER,
 		genre_id INTEGER,
-		created_at DATETIME,
-		)`, tableNameRestaurantGenre)
+		created_at DATETIME)`, tableNameRestaurantGenre)
 	_, err = Db.Exec(RestaurantGenreT)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	OwnerT := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
+		id INTEGER PRIMARY KEY AUTO_INCREMENT,
+		name VARCHAR(100),
+		password VARCHAR(1000),
+		created_at DATETIME,
+		updated_at DATETIME,
+		deleted_at DATETIME)`, tableNameOwner)
+	_, err = Db.Exec(OwnerT)
 	if err != nil {
 		log.Fatalln(err)
 	}
