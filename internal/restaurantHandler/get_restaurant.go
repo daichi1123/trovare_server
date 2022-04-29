@@ -19,9 +19,6 @@ type SpecifyRestaurant struct {
 func GetRestaurant(w http.ResponseWriter, r *http.Request) {
 	var restaurant Restaurant
 
-	//const fileを作成してその中で変数の管理をしたい
-	const getRestaurant = `SELECT id, name, description, rating, created_at FROM restaurants WHERE id = ?`
-
 	switch r.Method {
 	case http.MethodGet:
 		pathParam := strings.TrimPrefix(r.URL.Path, "/v1/restaurant/")
@@ -36,7 +33,7 @@ func GetRestaurant(w http.ResponseWriter, r *http.Request) {
 
 		utils.OpenDb()
 		utils.Db.Begin()
-		err = utils.Db.QueryRow(getRestaurant, specify.ID).Scan(
+		err = utils.Db.QueryRow(show, specify.ID).Scan(
 			&restaurant.ID,
 			&restaurant.Name,
 			&restaurant.Description,

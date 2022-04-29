@@ -16,9 +16,6 @@ type updateInfo struct {
 func UpdateRestaurantInfo(w http.ResponseWriter, r *http.Request) {
 	var updateRestaurantName updateInfo
 
-	// MEMO: const fileを作成してその中で変数の管理をしたい
-	const updateRestaurant = `UPDATE restaurants SET name = ? WHERE id = ?`
-
 	switch r.Method {
 	case http.MethodPatch:
 		getID, err := strconv.Atoi(path.Base(r.URL.Path))
@@ -36,7 +33,7 @@ func UpdateRestaurantInfo(w http.ResponseWriter, r *http.Request) {
 
 		utils.OpenDb()
 		utils.Db.Begin()
-		result, err := utils.Db.Exec(updateRestaurant, updateRestaurantName.Name, r.ID)
+		result, err := utils.Db.Exec(update, updateRestaurantName.Name, r.ID)
 		if err != nil {
 			utils.ErrorJSON(w, errors.New("BadRequest"))
 		}

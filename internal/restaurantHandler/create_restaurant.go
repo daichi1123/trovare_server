@@ -13,8 +13,6 @@ import (
 func CreateRestaurant(w http.ResponseWriter, r *http.Request) {
 	var restaurant Restaurant
 
-	const createRestaurant = `INSERT INTO restaurants (name, description, restaurant_id, owner_id, rating, created_at) values (?, ?, ?, ?, ?, ?)`
-
 	switch r.Method {
 	case "POST":
 		err := json.NewDecoder(r.Body).Decode(&restaurant)
@@ -26,7 +24,7 @@ func CreateRestaurant(w http.ResponseWriter, r *http.Request) {
 		utils.OpenDb()
 		utils.Db.Begin()
 		_, err = utils.Db.Exec(
-			createRestaurant,
+			create,
 			restaurant.Name,
 			restaurant.Description,
 			restaurant.RestaurantId,
