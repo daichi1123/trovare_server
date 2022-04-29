@@ -46,13 +46,12 @@ func Router() error {
 	//mux.HandleFunc("/", utils.RedirectIndex)
 	mux.HandleFunc("/v1/restaurant/", restaurantHandler.GetRestaurant)
 	mux.HandleFunc("/v1/restaurant/update/", restaurantHandler.UpdateRestaurantInfo)
-	mux.HandleFunc("/v1/restaurant/delete", restaurantHandler.DeleteRestaurant)
+	mux.HandleFunc("/v1/restaurant/delete/", restaurantHandler.DeleteRestaurant)
 
 	mux.HandleFunc(
 		"/v1/restaurant/register",
 		restaurantHandler.RegisterRestaurantForWeb,
 	)
-
 	mux.HandleFunc("/index", pkg.Index)
 	mux.HandleFunc("/v1/signup", auth.Signup)
 	mux.HandleFunc("/v1/signin/test", userHandler.Signin)
@@ -60,6 +59,7 @@ func Router() error {
 	mux.HandleFunc("/v1/check-session", userHandler.Authentication)
 	// login後にしかアクセスできない
 	mux.HandleFunc("/after-login", auth.AfterLogin)
+
 	http.ListenAndServe(configs.Config.Port, handler)
 	return nil
 

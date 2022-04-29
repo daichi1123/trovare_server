@@ -1,11 +1,11 @@
 package restaurantHandler
 
 import (
-	"encoding/json"
 	"errors"
-	"fmt"
 	"go_api/utils"
 	"net/http"
+	"path"
+	"strconv"
 )
 
 type specifyRestaurant struct {
@@ -13,18 +13,16 @@ type specifyRestaurant struct {
 }
 
 func DeleteRestaurant(w http.ResponseWriter, r *http.Request) {
-	var specifyID specifyRestaurant
-
 	const deleteRestaurant = `DELETE FROM restaurants WHERE id = ?;`
 
 	switch r.Method {
 	case http.MethodDelete:
-		fmt.Println(r.Body)
-		err := json.NewDecoder(r.Body).Decode(&specifyID)
+		getID, err := strconv.Atoi(path.Base(r.URL.Path))
 		if err != nil {
-			utils.ErrorJSON(w, errors.New("BadRequest"))
+			w.WriteHeader(400)
 			return
 		}
+		r := specifyRestaurant{getID}
 
 		utils.OpenDb()
 		utils.Db.Begin()
@@ -34,9 +32,9 @@ func DeleteRestaurant(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		_, err = stmt.Exec(specifyID.ID)
+		_, err = stmt.Exec(r.ID)
 		if err != nil {
-			utils.ErrorJSON(w, errors.New("BadRequest"))
+			w.WriteHeader(400)
 			return
 		} else {
 			w.WriteHeader(http.StatusNoContent)
