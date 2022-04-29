@@ -3,11 +3,9 @@ package restaurantHandler
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"go_api/utils"
 	"log"
 	"net/http"
-	"reflect"
 	"strconv"
 	"strings"
 )
@@ -26,10 +24,7 @@ func GetRestaurant(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		fmt.Println(reflect.TypeOf(specifyID))
-
 		specify := SpecifyRestaurant{specifyID}
-		fmt.Println(specify)
 
 		utils.OpenDb()
 		utils.Db.Begin()
@@ -43,9 +38,16 @@ func GetRestaurant(w http.ResponseWriter, r *http.Request) {
 			utils.ErrorJSON(w, errors.New("BadRequest"))
 		}
 		defer utils.Db.Close()
-		json.Marshal(restaurant)
+		res, err := json.Marshal(restaurant)
+		if err != nil {
+			w.WriteHeader(400)
+		}
+
+		w.Header().Set("Location", r.Host+r.URL.Path+strconv.Itoa(specify.ID))
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(200)
+		w.Write(res)
 
 		return
 	}
-	return
 }
