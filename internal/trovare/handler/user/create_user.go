@@ -13,13 +13,11 @@ var createUser = User{
 }
 
 func (u User) CreateUser() (err error) {
-	const insert = `INSERT INTO users (uuid, name, email, password, created_at) values (?, ?, ?, ?, ?)`
-
 	pkg.OpenDb()
 
 	pkg.Db.Begin()
 	_, err = pkg.Db.Exec(
-		insert,
+		createU,
 		pkg.CreateUUID(),
 		u.Name,
 		u.Email,

@@ -6,9 +6,8 @@ import (
 )
 
 func (sess *Session) DeleteSessionByUUID() (err error) {
-	const deleteSessionByUuid = `DELETE FROM sessions WHERE uuid = ?`
 	pkg.OpenDb()
-	_, err = pkg.Db.Exec(deleteSessionByUuid, sess.UUID)
+	_, err = pkg.Db.Exec(deleteSessByUuid, sess.UUID)
 	if err != nil {
 		log.Fatalln(err)
 	}
