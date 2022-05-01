@@ -1,10 +1,10 @@
 package restaurant
 
 import (
-	service2 "go_api/internal/trovare/service"
+	"go_api/internal/trovare/service"
 )
 
-type User service2.User
-type Session service2.Session
-type Restaurant service2.Restaurant
-type RestaurantResponse service2.GetRestaurantsResponse
+type User service.User
+type Session service.Session
+type Restaurant service.Restaurant
+type RestaurantResponse service.GetRestaurantsResponse
