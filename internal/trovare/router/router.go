@@ -5,6 +5,7 @@ import (
 	"go_api/cmd/pkg"
 	"go_api/configs"
 	"go_api/internal/trovare/auth"
+	"go_api/internal/trovare/handler/genre"
 	"go_api/internal/trovare/handler/restaurant"
 	"go_api/internal/trovare/handler/user"
 	"net/http"
@@ -30,6 +31,9 @@ func Router() error {
 	mux.HandleFunc("/v1/restaurants/create", restaurant.CreateRestaurant)
 	mux.HandleFunc("/v1/restaurants/update/", restaurant.UpdateRestaurantInfo)
 	mux.HandleFunc("/v1/restaurants/delete/", restaurant.DeleteRestaurant)
+
+	// routing of genre
+	mux.HandleFunc("/v1/genres/create", genre.CreateGenre)
 
 	// routing for user
 	mux.HandleFunc("/index", pkg.Index)
