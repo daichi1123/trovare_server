@@ -16,6 +16,7 @@ const (
 	tableNameFood            = "foods"
 	tableNameDrink           = "drinks"
 	tableNameRestaurantGenre = "restaurant_genres"
+	tableNameGenre           = "genres"
 )
 
 // MEMO: マイグレーションファイルも1ファイル毎に分けているのでこのファイルも分けるべきではないか??
@@ -110,6 +111,16 @@ func MakeTable() {
 		updated_at DATETIME,
 		deleted_at DATETIME)`, tableNameOwner)
 	_, err = Db.Exec(OwnerT)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	GenreT := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
+		id INTEGER PRIMARY KEY AUTO_INCREMENT,
+		name VARCHAR(100),
+		created_at DATETIME,
+		updated_at DATETIME)`, tableNameGenre)
+	_, err = Db.Exec(GenreT)
 	if err != nil {
 		log.Fatalln(err)
 	}
