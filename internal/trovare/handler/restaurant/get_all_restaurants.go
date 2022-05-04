@@ -21,10 +21,10 @@ func GetAllRestaurants(w http.ResponseWriter, r *http.Request) {
 
 		err = rows.Scan(
 			&restaurant.ID,
-			&restaurant.Name,
-			&restaurant.Description,
-			&restaurant.RestaurantId,
-			&restaurant.OwnerId,
+			restaurant.Name,
+			restaurant.Description,
+			restaurant.ZipCode,
+			restaurant.Address,
 			&restaurant.Rating,
 			&restaurant.CreatedAt,
 		)

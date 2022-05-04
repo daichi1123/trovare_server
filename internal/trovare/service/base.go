@@ -43,6 +43,18 @@ func MakeTable() {
 		log.Fatalln(err)
 	}
 
+	OwnerT := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
+		id INTEGER PRIMARY KEY AUTO_INCREMENT,
+		name VARCHAR(100),
+		password VARCHAR(1000),
+		created_at DATETIME,
+		updated_at DATETIME,
+		deleted_at DATETIME)`, tableNameOwner)
+	_, err = Db.Exec(OwnerT)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 	// sessions table
 	sessionT := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
 		id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -60,10 +72,14 @@ func MakeTable() {
 		id INTEGER PRIMARY KEY AUTO_INCREMENT,
 		name VARCHAR(100),
 		description VARCHAR(1000),
-		restaurant_id INTEGER,
-		owner_id INTEGER,
 		rating INTEGER,
-		created_at DATETIME)`, tableNameRestaurant)
+		zip_code INTEGER,
+		address VARCHAR(1000),
+		image_url VARCHAR(1000),
+		owner_id INTEGER,
+		created_at DATETIME,
+		updated_at DATETIME,
+		deleted_at DATETIME)`, tableNameRestaurant)
 	_, err = Db.Exec(restaurantT)
 	if err != nil {
 		log.Fatalln(err)
@@ -99,18 +115,6 @@ func MakeTable() {
 		genre_id INTEGER,
 		created_at DATETIME)`, tableNameRestaurantGenre)
 	_, err = Db.Exec(RestaurantGenreT)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	OwnerT := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
-		id INTEGER PRIMARY KEY AUTO_INCREMENT,
-		name VARCHAR(100),
-		password VARCHAR(1000),
-		created_at DATETIME,
-		updated_at DATETIME,
-		deleted_at DATETIME)`, tableNameOwner)
-	_, err = Db.Exec(OwnerT)
 	if err != nil {
 		log.Fatalln(err)
 	}

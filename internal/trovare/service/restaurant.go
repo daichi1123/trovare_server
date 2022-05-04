@@ -2,29 +2,40 @@ package service
 
 import "time"
 
-type Restaurant struct {
-	ID           int       `json:"id"`
-	Name         string    `json:"name"`
-	Description  string    `json:"description"`
-	RestaurantId int       `json:"restaurant_id"`
-	OwnerId      int       `json:"owner_id"`
-	Rating       int       `json:"rating"`
-	CreatedAt    time.Time `json:"created_at"`
-}
+type (
+	Restaurant struct {
+		ID          int       `json:"id"`
+		Name        string    `json:"name"`
+		Description string    `json:"description"`
+		Rating      int       `json:"rating"`
+		ZipCode     int       `json:"zip_code"`
+		Address     string    `json:"address"`
+		ImageURL    string    `json:"image_url"`
+		CreatedAt   time.Time `json:"-"`
+		UpdatedAt   time.Time `json:"-"`
+		DeletedAt   time.Time `json:"-"`
+	}
 
-type GetRestaurantsResponse struct {
-	Restaurants []Restaurant `json:"restaurants"`
-}
+	GetRestaurantsResponse struct {
+		Restaurants []Restaurant `json:"restaurants"`
+	}
 
-type CreateRestaurantRequest struct {
-}
+	CreateRestaurantRequest struct {
+		Name        string    `json:"name"`
+		Description string    `json:"description"`
+		ZipCode     int       `json:"zip_code"`
+		Address     string    `json:"address"`
+		ImageURL    string    `json:"image_url"`
+		CreatedAt   time.Time `json:"-"`
+	}
 
-type CreateRestaurantResponse struct {
-	Restaurant Restaurant `json:"restaurant"`
-}
+	CreateRestaurantResponse struct {
+		Restaurant Restaurant `json:"restaurant"`
+	}
 
-type UpdateRestaurantRequest struct {
-}
+	UpdateRestaurantRequest struct {
+	}
 
-type UpdateRestaurantResponse struct {
-}
+	UpdateRestaurantResponse struct {
+	}
+)
