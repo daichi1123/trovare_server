@@ -4,7 +4,10 @@ import (
 	"go_api/internal/trovare/service"
 )
 
-type User service.User
-type Session service.Session
-type Restaurant service.Restaurant
-type RestaurantResponse service.GetRestaurantsResponse
+type (
+	User                    service.User
+	Session                 service.Session
+	Restaurant              service.Restaurant
+	GetRestaurantsResponse  service.GetRestaurantsResponse
+	CreateRestaurantRequest service.CreateRestaurantRequest
+)
