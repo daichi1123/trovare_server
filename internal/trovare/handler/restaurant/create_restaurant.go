@@ -26,17 +26,17 @@ func CreateRestaurant(w http.ResponseWriter, r *http.Request) {
 			create,
 			restaurant.Name,
 			restaurant.Description,
-			restaurant.RestaurantId,
-			restaurant.OwnerId,
-			restaurant.Rating, // TODO: ratingは、クライアント側が評価していく部分なので将来的にはcreateの際には設定できない様にする
+			restaurant.ZipCode,
+			restaurant.Address,
 			time.Now())
+		defer pkg.Db.Close()
 		if err != nil {
 			w.WriteHeader(400)
 			json.NewEncoder(w).Encode("BadRequest")
+		} else {
+			w.WriteHeader(201)
+			json.NewEncoder(w).Encode("Created Restaurant")
 		}
-		w.WriteHeader(201)
-		json.NewEncoder(w).Encode("Created Restaurant")
-		defer pkg.Db.Close()
 
 		return
 	}
