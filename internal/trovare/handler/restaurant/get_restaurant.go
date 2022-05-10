@@ -33,6 +33,9 @@ func GetRestaurant(w http.ResponseWriter, r *http.Request) {
 			&restaurant.Name,
 			&restaurant.Description,
 			&restaurant.Rating,
+			&restaurant.ZipCode,
+			&restaurant.Address,
+			&restaurant.ImageURL,
 			&restaurant.CreatedAt)
 		if err != nil {
 			pkg.ErrorJSON(w, errors.New("BadRequest"))
