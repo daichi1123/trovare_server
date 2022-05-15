@@ -20,6 +20,16 @@ type (
 		Restaurants []Restaurant `json:"restaurants"`
 	}
 
+	GetRestaurantsListsResponse struct {
+		ID          int    `json:"id"`
+		Name        string `json:"name"`
+		Description string `json:"description"`
+		ZipCode     int    `json:"zip_code"`
+		Address     string `json:"address"`
+		Rating      int    `json:"rating"`
+		ImageURL    string `json:"image_url"`
+	}
+
 	CreateRestaurantRequest struct {
 		Name        string    `json:"name"`
 		Description string    `json:"description"`

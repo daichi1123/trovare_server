@@ -15,7 +15,7 @@ func GetAllRestaurants(w http.ResponseWriter, r *http.Request) {
 	}
 	defer rows.Close()
 
-	data := []Restaurant{}
+	var data []Restaurant
 	for rows.Next() {
 		restaurant := Restaurant{}
 
@@ -43,7 +43,6 @@ func GetAllRestaurants(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO: この処理をまとめておきたい
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(res)
 	return

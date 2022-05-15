@@ -1,7 +1,6 @@
 package router
 
 import (
-	"github.com/rs/cors"
 	"go_api/cmd/pkg"
 	"go_api/configs"
 	"go_api/internal/trovare/auth"
@@ -9,6 +8,8 @@ import (
 	"go_api/internal/trovare/handler/restaurant"
 	"go_api/internal/trovare/handler/user"
 	"net/http"
+
+	"github.com/rs/cors"
 )
 
 func Router() error {
@@ -26,11 +27,14 @@ func Router() error {
 	//mux.HandleFunc("/", utils.RedirectIndex)
 
 	// routing for restaurants
+	//restaurant.Restaurant.CreateTestRestaurant(restaurant.Restaurant{})
 	mux.HandleFunc("/v1/restaurants", restaurant.GetAllRestaurants)
 	mux.HandleFunc("/v1/restaurants/", restaurant.GetRestaurant)
 	mux.HandleFunc("/v1/restaurants/create", restaurant.CreateRestaurant)
 	mux.HandleFunc("/v1/restaurants/update/", restaurant.UpdateRestaurantInfo)
 	mux.HandleFunc("/v1/restaurants/delete/", restaurant.DeleteRestaurant)
+
+	mux.HandleFunc("/v1/restaurants/get/list", restaurant.GetRestaurantsForList)
 
 	// routing of genre
 	mux.HandleFunc("/v1/genres/create", genre.CreateGenre)

@@ -19,7 +19,7 @@ func GetRestaurant(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case http.MethodGet:
-		pathParam := strings.TrimPrefix(r.URL.Path, "/v1/restaurant/")
+		pathParam := strings.TrimPrefix(r.URL.Path, "/v1/restaurants/")
 		specifyID, err := strconv.Atoi(pathParam)
 		if err != nil {
 			log.Fatalln(err)
@@ -33,6 +33,9 @@ func GetRestaurant(w http.ResponseWriter, r *http.Request) {
 			&restaurant.Name,
 			&restaurant.Description,
 			&restaurant.Rating,
+			&restaurant.ZipCode,
+			&restaurant.Address,
+			&restaurant.ImageURL,
 			&restaurant.CreatedAt)
 		if err != nil {
 			pkg.ErrorJSON(w, errors.New("BadRequest"))

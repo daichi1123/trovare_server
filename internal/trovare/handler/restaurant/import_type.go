@@ -9,5 +9,6 @@ type (
 	Session                 service.Session
 	Restaurant              service.Restaurant
 	GetRestaurantsResponse  service.GetRestaurantsResponse
+	GetRestaurantLists      service.GetRestaurantsListsResponse
 	CreateRestaurantRequest service.CreateRestaurantRequest
 )
