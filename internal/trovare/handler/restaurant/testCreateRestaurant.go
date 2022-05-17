@@ -13,7 +13,7 @@ func (r Restaurant) CreateTestRestaurant() (err error) {
 		Rating:      1,
 		ZipCode:     1410031,
 		Address:     "Tokyo shinagawaku nishigotanda 7-8",
-		ImageURL:    "../src/img/cafe.jpg",
+		ImageURL:    "../../../../../img/curry.jpeg",
 	}
 	pkg.OpenDb()
 	pkg.Db.Begin()
