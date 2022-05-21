@@ -39,6 +39,18 @@ type (
 		CreatedAt   time.Time `json:"-"`
 	}
 
+	GetRestaurantLocationRequest struct {
+		ID       int    `json:"id"`
+		Name     string `json:"name"`
+		ZipCode  int    `json:"zip_code"`
+		Address  string `json:"address"`
+		ImageURL string `json:"image_url"`
+	}
+
+	GetRestaurantLocationResponse struct {
+		GetRestaurantLocationRequest []GetRestaurantLocationRequest `json:"get_rst_location"`
+	}
+
 	CreateRestaurantResponse struct {
 		Restaurant Restaurant `json:"restaurant"`
 	}
