@@ -13,7 +13,7 @@ func CreateRestaurant(w http.ResponseWriter, r *http.Request) {
 	var restaurant Restaurant
 
 	switch r.Method {
-	case "POST":
+	case http.MethodPost:
 		err := json.NewDecoder(r.Body).Decode(&restaurant)
 		if err != nil {
 			w.WriteHeader(400)
