@@ -6,9 +6,10 @@ import (
 )
 
 type ConfigList struct {
-	Port      string
-	SecretKey string
-	DbInfo    string
+	Port             string
+	SecretKey        string
+	DbInfo           string
+	GoogleMapsApiKey string
 }
 
 var Config ConfigList
@@ -20,8 +21,9 @@ func GetConfigVal() {
 		log.Fatalln(err)
 	}
 	Config = ConfigList{
-		Port:      cfg.Section("web").Key("port").String(),
-		SecretKey: cfg.Section("web").Key("SECRET_KEY").String(),
-		DbInfo:    cfg.Section("db").Key("db_info").String(),
+		Port:             cfg.Section("web").Key("port").String(),
+		SecretKey:        cfg.Section("web").Key("SECRET_KEY").String(),
+		DbInfo:           cfg.Section("db").Key("db_info").String(),
+		GoogleMapsApiKey: cfg.Section("apiKey").Key("GoogleMapsApiKey").String(),
 	}
 }

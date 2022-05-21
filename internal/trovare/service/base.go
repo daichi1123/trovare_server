@@ -75,6 +75,8 @@ func MakeTable() {
 		rating INTEGER,
 		zip_code INTEGER,
 		address VARCHAR(1000),
+		lat double,
+		lng double,
 		image_url VARCHAR(1000),
 		owner_id INTEGER,
 		created_at DATETIME,

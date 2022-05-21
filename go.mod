@@ -13,6 +13,10 @@ require (
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/kelvins/geocoder v0.0.0-20200113010004-f579500e9e27 // indirect
 	github.com/stretchr/testify v1.7.1 // indirect
+	go.opencensus.io v0.22.3 // indirect
+	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
+	googlemaps.github.io/maps v1.3.2 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
