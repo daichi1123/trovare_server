@@ -5,10 +5,11 @@ import (
 )
 
 type (
-	User                    service.User
-	Session                 service.Session
-	Restaurant              service.Restaurant
-	GetRestaurantsResponse  service.GetRestaurantsResponse
-	GetRestaurantLists      service.GetRestaurantsListsResponse
-	CreateRestaurantRequest service.CreateRestaurantRequest
+	User                         service.User
+	Session                      service.Session
+	Restaurant                   service.Restaurant
+	GetRestaurantsResponse       service.GetRestaurantsResponse
+	GetRestaurantLists           service.GetRestaurantsListsResponse
+	GetRestaurantLocationRequest service.GetRestaurantLocationRequest
+	CreateRestaurantRequest      service.CreateRestaurantRequest
 )
