@@ -1,8 +1,23 @@
 package service
 
-type CurrentLocationRequest struct {
-	Lat float64 `json:"lat"`
-	Lng float64 `json:"lng"`
-}
+type (
+	Distance struct {
+		Distance float64
+	}
 
-// NOTE: 住所を登録する際は、緯度経度で登録する方が後々使い勝手が良さそう
+	CurrentLocationRequest struct {
+		Lat float64 `json:"lat"`
+		Lng float64 `json:"lng"`
+	}
+
+	CurrentLocationResponse struct {
+		ID          int     `json:"id"`
+		Name        string  `json:"name"`
+		Description string  `json:"description"`
+		ZipCode     int     `json:"zip_code"`
+		Address     string  `json:"address"`
+		Rating      int     `json:"Rating"`
+		Lat         float64 `json:"lat"`
+		Lng         float64 `json:"lng"`
+	}
+)
