@@ -5,6 +5,7 @@ import (
 	"go_api/configs"
 	"go_api/internal/trovare/auth"
 	"go_api/internal/trovare/handler/genre"
+	"go_api/internal/trovare/handler/locations"
 	"go_api/internal/trovare/handler/restaurant"
 	"go_api/internal/trovare/handler/user"
 	"net/http"
@@ -35,6 +36,9 @@ func Router() error {
 	mux.HandleFunc("/v1/restaurants/delete/", restaurant.DeleteRestaurant)
 
 	mux.HandleFunc("/v1/restaurants/get/list", restaurant.GetRestaurantsForList)
+
+	// routing for locations
+	mux.HandleFunc("/v1/locations/post/current", locations.PostCurrentLocation)
 
 	// routing of genre
 	mux.HandleFunc("/v1/genres/create", genre.CreateGenre)
