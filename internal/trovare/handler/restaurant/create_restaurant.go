@@ -20,14 +20,20 @@ func CreateRestaurant(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode("BadRequest")
 			return
 		}
+		location := pkg.ConvertFromAddressToLocation(restaurant.Address)
+
 		pkg.OpenDb()
 		pkg.Db.Begin()
 		_, err = pkg.Db.Exec(
 			create,
 			restaurant.Name,
 			restaurant.Description,
+			restaurant.Rating,
 			restaurant.ZipCode,
 			restaurant.Address,
+			location.Lat,
+			location.Lng,
+			restaurant.ImageURL,
 			time.Now())
 		defer pkg.Db.Close()
 		if err != nil {
@@ -37,7 +43,6 @@ func CreateRestaurant(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(201)
 			json.NewEncoder(w).Encode("Created Restaurant")
 		}
-
 		return
 	}
 }
