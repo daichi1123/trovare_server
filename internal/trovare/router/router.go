@@ -27,6 +27,9 @@ func Router() error {
 	//下記RedirectIndexはエラーが出る
 	//mux.HandleFunc("/", utils.RedirectIndex)
 
+	// search
+	mux.HandleFunc("/v1/restaurants/search", restaurant.SearchRestaurants)
+
 	// routing for restaurants
 	//restaurant.Restaurant.CreateTestRestaurant(restaurant.Restaurant{})
 	mux.HandleFunc("/v1/restaurants", restaurant.GetAllRestaurants)
