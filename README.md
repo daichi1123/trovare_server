@@ -22,4 +22,6 @@ I don't decide which authentication way session or jwt
 
 Now I'm reading Practical Go Programming
 
-## I'm doing about Google Maps API
+## Change Directory struct
+
+I made seeder files

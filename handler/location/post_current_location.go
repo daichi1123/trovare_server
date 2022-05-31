@@ -33,6 +33,7 @@ func PostCurrentLocation(w http.ResponseWriter, r *http.Request) {
 			// TODO: 下記structを使用せずにquery文を実行したい
 			distance := Distance{}
 
+			//ここの値をcurrentLocationRes.Location.Latみたいにすればいけるのではないか
 			err = rows.Scan(
 				&currentLocationRes.ID,
 				&currentLocationRes.Name,
@@ -40,8 +41,8 @@ func PostCurrentLocation(w http.ResponseWriter, r *http.Request) {
 				&currentLocationRes.ZipCode,
 				&currentLocationRes.Address,
 				&currentLocationRes.Rating,
-				&currentLocationRes.Lat,
-				&currentLocationRes.Lng,
+				&currentLocationRes.Coords.Lat,
+				&currentLocationRes.Coords.Lng,
 				&distance.Distance)
 			rstsInfoRes = append(rstsInfoRes, currentLocationRes)
 		}
