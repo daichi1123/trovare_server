@@ -24,7 +24,6 @@ func Router() error {
 	mux.HandleFunc("/v1/restaurants/search", restaurant.SearchRestaurants)
 
 	// routing for restaurants
-	//restaurant.Restaurant.CreateTestRestaurant(restaurant.Restaurant{})
 	mux.HandleFunc("/v1/restaurants", restaurant.GetAllRestaurants)
 	mux.HandleFunc("/v1/restaurants/", restaurant.GetRestaurant)
 	mux.HandleFunc("/v1/restaurants/create", restaurant.CreateRestaurant)
