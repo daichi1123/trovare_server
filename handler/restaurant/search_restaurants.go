@@ -3,7 +3,8 @@ package restaurant
 import (
 	"encoding/json"
 	"fmt"
-	"go_api/pkg"
+	"go_api/db"
+	"go_api/query"
 	"log"
 	"net/http"
 	"strconv"
@@ -17,11 +18,11 @@ func SearchRestaurants(w http.ResponseWriter, r *http.Request) {
 		genre := r.URL.Query().Get("genres")
 		rating := r.URL.Query().Get("rating")
 
-		pkg.OpenDb()
-		pkg.Db.Begin()
+		db.OpenDb()
+		db.Db.Begin()
 
 		if restaurant != "" {
-			rows, err := pkg.Db.Query(searchResult, restaurant)
+			rows, err := db.Db.Query(query.SearchResult, restaurant)
 
 			for rows.Next() {
 				var name string
@@ -46,7 +47,7 @@ func SearchRestaurants(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if genre != "" {
-			rows, err := pkg.Db.Query(searchResultByGenre, genre)
+			rows, err := db.Db.Query(query.SearchResultByGenre, genre)
 
 			for rows.Next() {
 				var name string
@@ -76,7 +77,7 @@ func SearchRestaurants(w http.ResponseWriter, r *http.Request) {
 				log.Println(err)
 			}
 
-			rows, err := pkg.Db.Query(searchResultByRating, rating)
+			rows, err := db.Db.Query(query.SearchResultByRating, rating)
 
 			for rows.Next() {
 				var name string
@@ -101,7 +102,7 @@ func SearchRestaurants(w http.ResponseWriter, r *http.Request) {
 
 		}
 	}
-	defer pkg.Db.Close()
+	defer db.Db.Close()
 
 	return
 }
