@@ -6,8 +6,8 @@ const (
 	GetRstLocation       = `SELECT id, name, zip_code, address, image_url, rating FROM restaurants`
 	CreateRst            = `INSERT INTO restaurants (name, description, rating, zip_code, address, lat, lng, image_url, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)`
 	SearchResult         = `SELECT name FROM restaurants WHERE name LIKE CONCAT('%', ?, '%')`
-	SearchResultByGenre  = `SELECT name FROM restaurants WHERE name LIKE CONCAT('%', ?, '%')`
-	SearchResultByRating = `SELECT name FROM restaurants WHERE name LIKE CONCAT('%', ?, '%')`
+	SearchResultByGenre  = `SELECT restaurants.name FROM restaurants JOIN genres ON restaurants.genre_id=genres.id WHERE restaurants.genre_id=?`
+	SearchResultByRating = `SELECT name FROM restaurants WHERE rating=?`
 	InsertRsts           = `INSERT INTO restaurants (name, description, rating, zip_code, address, lat, lng, image_url, genre_id, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 	ShowRst              = `SELECT id, name, description, rating, zip_code, address, image_url, created_at FROM restaurants WHERE id = ?`
 	UpdateRst            = `UPDATE restaurants SET name = ? WHERE id = ?`
