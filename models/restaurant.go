@@ -91,4 +91,16 @@ type (
 
 	UpdateRestaurantResponse struct {
 	}
+
+	SearchRestaurantResponse struct {
+		Name        string  `json:"name"`
+		Description string  `json:"description"`
+		Rating      int     `json:"rating"`
+		ZipCode     int     `json:"zip_code"`
+		Address     string  `json:"address"`
+		Lat         float64 `json:"lat"`
+		Lng         float64 `json:"lng"`
+		ImageURL    string  `json:"image_url"`
+		GenreName   string  `json:"genre_name"`
+	}
 )
