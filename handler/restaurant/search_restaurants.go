@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"go_api/db"
+	"go_api/models"
 	"go_api/query"
 	"log"
 	"net/http"
@@ -23,51 +24,80 @@ func SearchRestaurants(w http.ResponseWriter, r *http.Request) {
 
 		if restaurant != "" {
 			rows, err := db.Db.Query(query.SearchResult, restaurant)
+			result := models.SearchRestaurantResponse{}
+			var data []models.SearchRestaurantResponse
 
 			for rows.Next() {
-				var name string
-				err := rows.Scan(&name)
+				err := rows.Scan(
+					&result.Name,
+					&result.Description,
+					&result.Rating,
+					&result.ZipCode,
+					&result.Address,
+					&result.Lat,
+					&result.Lng,
+					&result.ImageURL,
+					&result.GenreName,
+				)
 
 				if err != nil {
-					log.Fatal(err.Error())
+					log.Println(err)
+					w.WriteHeader(401)
+				} else {
+					data = append(data, result)
 				}
-				fmt.Println(name)
 			}
 			defer rows.Close()
 
-			resp, err := json.Marshal(rows)
+			rsts, err := json.Marshal(data)
 			if err != nil {
-				w.WriteHeader(400)
-				return
+				fmt.Println(err.Error())
 			}
 
 			w.Header().Set("Content-Type", "application/json")
-			w.Write(resp)
+			w.Write(rsts)
 			return
 		}
 
 		if genre != "" {
 			rows, err := db.Db.Query(query.SearchResultByGenre, genre)
+			result := models.SearchRestaurantResponse{}
+			var data []models.SearchRestaurantResponse
 
 			for rows.Next() {
-				var name string
-				err := rows.Scan(&name)
+				err := rows.Scan(
+					&result.Name,
+					&result.Description,
+					&result.Rating,
+					&result.ZipCode,
+					&result.Address,
+					&result.Lat,
+					&result.Lng,
+					&result.ImageURL,
+					&result.GenreName,
+				)
+
+				if err != nil {
+					log.Println(err)
+					w.WriteHeader(401)
+				} else {
+					data = append(data, result)
+				}
 
 				if err != nil {
 					log.Fatal(err.Error())
 				}
-				fmt.Println(name)
 			}
 			defer rows.Close()
 
-			restaurantByGenre, err := json.Marshal(rows)
+			rstsByGenre, err := json.Marshal(data)
 			if err != nil {
 				w.WriteHeader(400)
 				return
 			}
 
 			w.Header().Set("Content-Type", "application/json")
-			w.Write(restaurantByGenre)
+			w.Write(rstsByGenre)
 			return
 		}
 
@@ -78,28 +108,44 @@ func SearchRestaurants(w http.ResponseWriter, r *http.Request) {
 			}
 
 			rows, err := db.Db.Query(query.SearchResultByRating, rating)
+			result := models.SearchRestaurantResponse{}
+			var data []models.SearchRestaurantResponse
 
 			for rows.Next() {
-				var name string
-				err := rows.Scan(&name)
+				err := rows.Scan(
+					&result.Name,
+					&result.Description,
+					&result.Rating,
+					&result.ZipCode,
+					&result.Address,
+					&result.Lat,
+					&result.Lng,
+					&result.ImageURL,
+					&result.GenreName,
+				)
+
+				if err != nil {
+					log.Println(err)
+					w.WriteHeader(401)
+				} else {
+					data = append(data, result)
+				}
 
 				if err != nil {
 					log.Fatal(err.Error())
 				}
-				fmt.Println(name)
 			}
 			defer rows.Close()
 
-			restaurantByRating, err := json.Marshal(rows)
+			rstsByRating, err := json.Marshal(data)
 			if err != nil {
 				w.WriteHeader(400)
 				return
 			}
 
 			w.Header().Set("Content-Type", "application/json")
-			w.Write(restaurantByRating)
+			w.Write(rstsByRating)
 			return
-
 		}
 	}
 	defer db.Db.Close()
