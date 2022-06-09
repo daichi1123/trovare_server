@@ -24,4 +24,4 @@ Now I'm reading Practical Go Programming
 
 ## Change Directory struct
 
-I made seeder files
+I'm reactoring code
